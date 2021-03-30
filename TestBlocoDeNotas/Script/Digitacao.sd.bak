@@ -1,0 +1,6 @@
+﻿procedure Digitacao;
+begin
+  Aliases.notepad.wndNotepad.Edit.Click(194, 91);
+  Aliases.notepad.wndNotepad.Edit.Keys('^a[BS][Caps][BS]Teste');
+  aqObject.CheckProperty(Aliases.notepad.wndNotepad.Edit, 'wText', cmpEqual, 'Teste', false);
+end;

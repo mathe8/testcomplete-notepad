@@ -1,0 +1,7 @@
+﻿uses
+  Functions;
+  
+procedure AllTests();
+begin
+  Functions.Executar;
+end;

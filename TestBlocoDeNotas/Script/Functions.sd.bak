@@ -1,0 +1,63 @@
+﻿procedure AbrirBlocoDeNotas;
+begin
+  TestedApps.notepad.Run(1, true);
+  Aliases.notepad.wndNotepad.Edit.Keys('^a[BS]');
+  aqObject.CheckProperty(Aliases.notepad.wndNotepad.Edit, 'wText', cmpEqual, '', false);
+end;
+
+procedure Digitar;
+begin
+  Aliases.notepad.wndNotepad.Edit.Keys('^a[BS]Teste');
+  aqObject.CheckProperty(Aliases.notepad.wndNotepad.Edit, 'wText', cmpEqual, 'Teste', false);
+end;
+
+procedure LocalizarErrado;
+begin
+  Aliases.notepad.wndNotepad.Edit.Keys('^a[BS][Caps]T[Caps]este');
+  Aliases.notepad.wndNotepad.MainMenu.Click('Editar|Localizar...');
+  Aliases.notepad.dlgLocalizar.editLocalizar.Keys('[Caps]');
+  Aliases.notepad.dlgLocalizar.editLocalizar.SetText('T');
+  Aliases.notepad.dlgLocalizar.editLocalizar.Keys('[Caps]');
+  Aliases.notepad.dlgLocalizar.editLocalizar.SetText('Teste errado');
+  Aliases.notepad.dlgLocalizar.radioAcima.ClickButton;
+  Aliases.notepad.dlgLocalizar.check.ClickButton(cbChecked);
+  Aliases.notepad.dlgLocalizar.btnLocalizarPr_xima.ClickButton;
+  aqObject.CheckProperty(Aliases.notepad.dlgBlocoDeNotas.Static2, 'WndCaption', cmpEqual, 'Não é possível encontrar "Teste errado"');
+  Aliases.notepad.dlgBlocoDeNotas.btnOK.ClickButton;
+  Aliases.notepad.dlgLocalizar.Close;
+end;
+
+procedure Desfazer;
+begin
+  Aliases.notepad.wndNotepad.Edit.Keys('^a[BS][Caps]T[Caps]este^a[BS][Caps]N[Caps]ovo^z');
+  aqObject.CheckProperty(Aliases.notepad.wndNotepad.Edit, 'wText', cmpEqual, 'Teste', false);
+end;
+
+procedure InserirHoraAtual;
+var
+  DataAtual: String;
+  HoraAtual: String;
+  
+  HorarioFormatado : String;
+begin
+  Aliases.notepad.wndNotepad.Edit.Keys('^a[BS]');
+  
+  DataAtual:=DateToStr(Date);
+  HoraAtual:=TimeToStr(Time);
+  SetLength(HoraAtual, 5);
+  HorarioFormatado := HoraAtual+' '+DataAtual;
+  // ShowMessage(HorarioFormatado);
+
+  Aliases.notepad.wndNotepad.MainMenu.Click('Editar|Hora/data');
+  aqObject.CheckProperty(Aliases.notepad.wndNotepad.Edit, 'wText', cmpEqual, HorarioFormatado, false);
+  Aliases.notepad.wndNotepad.Edit.Click(282, 237);
+end;
+
+procedure Executar();
+begin 
+  AbrirBlocoDeNotas;
+  Digitar;
+  LocalizarErrado;
+  Desfazer;
+  InserirHoraAtual;
+end;

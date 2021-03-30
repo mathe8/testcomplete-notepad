@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Root signature="{9252F941-DB23-4FCA-AA50-858B33BB4A19}" version="11.40">
+	<children>
+		<child name="Functions" key="{BD78B711-578D-475C-B42C-91845865F3E3}" path="Functions.sd" />
+		<child name="Main" key="{2000C145-8A4F-43E0-933E-90D00520047A}" path="Main.sd" />
+	</children>
+</Root>
