@@ -1,1 +1,1 @@
-# testcomplete-notepad
+# Testcomplete Notepad
